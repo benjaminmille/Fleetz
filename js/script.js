@@ -10,7 +10,7 @@ function compte_a_rebours()
 	var compte_a_rebours = document.getElementById("compte_a_rebours");
 
 	var date_actuelle = new Date();
-	var date_evenement = new Date("Oct 3 10:25:00 2014");
+	var date_evenement = date_actuelle.getTime() + 30*60000;
 	var total_secondes = (date_evenement - date_actuelle) / 1000;
 
 	var prefixe = "Vous serez déconnecté dans ";
