@@ -309,22 +309,20 @@ var chat = {
 		switch(template){
 			case 'loginTopBar':
 				arr = [
-				'<span><img src="',params.gravatar,'" width="23" height="23" />',
 				'<span class="name">',params.name,
 				'</span><a href="" class="logoutButton rounded">Déconnexion</a></span>'];
 			break;
 			
 			case 'chatLine':
 				arr = [
-					'<div class="chat chat-',params.id,' rounded"><span class="gravatar"><img src="',params.gravatar,
-					'" width="23" height="23" onload="this.style.visibility=\'visible\'" />','</span><span class="author">',params.author,
+					'<div class="chat chat-',params.id,' rounded">',
+					'</span><span class="author">',params.author,
 					':</span><span class="text">',params.text,'</span><span class="time">',params.time,'</span></div>'];
 			break;
 			
 			case 'user':
 				arr = [
-					'<div class="user" title="',params.name,'"><img src="',
-					params.gravatar,'" width="30" height="30" onload="this.style.visibility=\'visible\'" /></div>'
+					'<div class="user" title="',params.name,'"></div>'
 				];
 			break;
 		}
