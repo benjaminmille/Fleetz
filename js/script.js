@@ -5,13 +5,60 @@ $(document).ready(function(){
 	
 });
 
+// var _second = 1000;
+// var _minute = _second * 60;
+// var _hour = _minute * 60;
+// var _day = _hour * 24;
+// var timer;
+	
+// function showRemaining()
+// {
+	// var now = new Date();
+	// var end = now.getMinutes() + 30*60000;
+	// var distance = end - now;
+	// if (distance < 0 ) {
+	   // clearInterval( timer ); // on arrête le décompte une fois que c'est terminé
+	   
+		// $('#chatTopBar > span').fadeOut(function(){
+			// $(this).remove();
+		// });
+		
+		// $('#submitForm').fadeOut(function(){
+			// $('#loginForm').fadeIn();
+		// });
+		
+		// $.tzPOST('logout');
+	
+	   // alert("Fin de la session de tchat"); // message d'alerte
+		
+	   // return; // on stop tout
+	// }
+	// var days = Math.floor(distance / _day);
+	// var hours = Math.floor( (distance % _day ) / _hour );
+	// var minutes = Math.floor( (distance % _hour) / _minute );
+	// var seconds = Math.floor( (distance % _minute) / _second );
+	// var milliseconds = Math.floor( (distance % _second)/10 );
+   
+	// document.getElementById('countdown').innerHTML = '<span class="days">' + days + '</span>';
+	// document.getElementById('countdown').innerHTML += '<span class="hours"> ' + hours+ '</span>';
+	// document.getElementById('countdown').innerHTML += '<span class="minutes">:' + minutes+ '</span>';
+	// document.getElementById('countdown').innerHTML += '<span class="seconds">:' + seconds+ '</span>';
+	// document.getElementById('countdown').innerHTML += '<span class="milliseconds">:' + milliseconds+ '</span>';
+// }
+
+// timer = setInterval(showRemaining, 10);
+
 function compte_a_rebours()
 {
 	var compte_a_rebours = document.getElementById("compte_a_rebours");
 
 	var date_actuelle = new Date();
-	var date_evenement = date_actuelle.getTime() + 30*60000;
-	var total_secondes = (date_evenement - date_actuelle) / 1000;
+	var d2 = new Date(date_actuelle);
+	d2.setMinutes ( date_actuelle.getMinutes() + 30 );
+	// var date_evenement = new Date("Oct 3 15:30:00 2014");
+	// var date_evenement = date_actuelle.getTime() + 1*60000;
+	// var date_evenement = date_actuelle.getMinutes + 60000;
+	var total_secondes = (d2 - date_actuelle) / 1000;
 
 	var prefixe = "Vous serez déconnecté dans ";
 	
@@ -101,7 +148,6 @@ function compte_a_rebours()
 
 	var actualisation = setTimeout("compte_a_rebours();", 1000);
 }
-compte_a_rebours();
 
 var chat = {
 	
@@ -151,6 +197,8 @@ var chat = {
 				}
 				else chat.login(r.name,r.gravatar);
 			});
+			
+			compte_a_rebours();
 			
 			return false;
 		});
