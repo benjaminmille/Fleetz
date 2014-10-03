@@ -6,16 +6,24 @@
 body{
 	color:#eee;
 	background:url('../img/1393521301_12407.jpg') repeat-x #323232;
-	background-size: 100%;
+	background-repeat: no-repeat; 
+	background-attachment: fixed; 
+	position:relative;
+	background-size: cover; 
+	-moz-background-size: 100% 100%;     /* Gecko 1.9.2 (Firefox 3.6) */
+	-o-background-size: 100% 100%;        /* Opera 9.5 */
+	-webkit-background-size: 100% 100%;   /* Safari 3.0 */
+	background-size: 100% 100%;           /* Gecko 2.0 (Firefox 4.0) > CSS3 */
 	font:15px Calibri,Arial,sans-serif;
 	border-top:5px solid #212121;
+	
 }
 
 #footer{
 	background-color:#212121;
 	position:fixed;
 	width:100%;
-	height:70px;
+	height:20px;
 	bottom:0;
 	left:0;
 }
