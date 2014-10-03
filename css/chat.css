@@ -73,11 +73,10 @@
 
 #chatUsers{
 	background:url('../img/1393521301_12407.jpg');
-	height:70%;
-	position:fixed;
-	bottom:100px;
-	right:0px;
-	left:800px;
+	height:100%;
+	position:absolute;
+	right:0;
+	top:56px;
 	width:100px;
 }
 
@@ -92,9 +91,9 @@
 
 #chatBottomBar{
 	background:url('../img/1393521301_12407.jpg');
-	position:fixed;
-	bottom:30px;
+	position:relative;
 	padding:10px;
+	border:1px solid #fff;
 	
 	
 }
