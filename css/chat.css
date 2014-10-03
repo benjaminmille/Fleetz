@@ -15,6 +15,9 @@
 	background:url('../img/1393521301_12407.jpg') repeat-x #d0d0d0;
 	color:#777;
 	text-shadow:1px 1px 0 #FFFFFF;
+	margin-bottom:15px;
+	position:relative;
+	
 }
 
 #chatTopBar .name{
@@ -98,13 +101,12 @@
 
 
 #chatUsers{
-	background-color:#202020;
-	border:1px solid #111111;
-	height:360px;
+	background:url('../img/1393521301_12407.jpg');
+	height:100%;
 	position:absolute;
 	right:0;
 	top:56px;
-	width:150px;
+	width:100px;
 }
 
 #chatUsers .user{
@@ -127,21 +129,13 @@
 
 
 #chatBottomBar{
-	background:url('../img/solid_gray.jpg') repeat-x #d0d0d0;
-	position:relative;
+	background:url('../img/1393521301_12407.jpg');
+	position:fixed;
+	bottom:30px;
 	padding:10px;
-	border:1px solid #fff;
+	
 }
 
-#chatBottomBar .tip{
-	position:absolute;
-	width:0;
-	height:0;
-	border:10px solid transparent;
-	border-bottom-color:#eeeeee;
-	top:-20px;
-	left:20px;
-}
 
 #chatContainer input{
 	background:url('../img/input_bg.jpg') repeat-x #dcdcdc;
