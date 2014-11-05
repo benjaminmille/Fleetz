@@ -38,6 +38,7 @@
 	padding:8px 6px 4px 37px;
 	position:relative;
 	margin:0 10px 10px 0;
+	
 }
 
 .chat:last-child{
@@ -59,9 +60,9 @@
 
 .chat .time{
 	position:absolute;
-	right:10px;
-	top:12px;
-	font-size:11px;
+	right:5px;
+	top:3px;
+	font-size:10px;
 }
 
 .chat .author{
@@ -76,7 +77,7 @@
 	height:100%;
 	position:absolute;
 	right:0;
-	top:56px;
+	top:45px;
 	width:100px;
 }
 
@@ -93,9 +94,7 @@
 	background:url('../img/1393521301_12407.jpg');
 	position:relative;
 	padding:10px;
-	border:1px solid #fff;
-	
-	
+	top:130px;
 }
 
 #chatContainer input{
