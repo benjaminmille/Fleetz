@@ -5,6 +5,7 @@
 		<link rel="stylesheet" type="text/css" href="js/jScrollPane/jScrollPane.css" />
 		<link rel="stylesheet" type="text/css" href="css/page.css" />
 		<link rel="stylesheet" type="text/css" href="css/chat.css" />
+	
 	</head>
 	
 	<header>
@@ -15,13 +16,7 @@
 		<h3>Set your room</h3></br>
 		<FORM ACTION="ajax-chat.html">
 		Timer
-			<SELECT id="duree" name="duree" size="1">
-			<OPTION selected>10m
-			<OPTION>15min
-			<OPTION>20min
-			<OPTION>25min
-			<OPTION>30min
-			</SELECT>
+			<input type="text" name="time" id="time" value="Minutes" />
 		Users
 			<SELECT id="users" name="users" size="1">
 			<OPTION selected>2 users
@@ -34,13 +29,13 @@
 			<OPTION>9 users
 			<OPTION>10 users
 			</SELECT>
-		<INPUT TYPE="submit" NAME="Room" VALUE=" Start " class="blueButton">
+		<INPUT TYPE="submit" NAME="Room" VALUE=" Start " onclick="gettime();" class="blueButton">
 		<INPUT TYPE="reset" NAME="nom" VALUE=" Reset " class="blueButton">
 		</FORM>
 	</body>
 
 	<footer>
-		<h3>&copy; BenBen et Badaah </h3>
+		<h3>&copy; BenBen & Badaah </h3>
 	</footer>
 	
 </html>

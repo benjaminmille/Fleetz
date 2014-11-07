@@ -5,149 +5,7 @@ $(document).ready(function(){
 	
 });
 
-// var _second = 1000;
-// var _minute = _second * 60;
-// var _hour = _minute * 60;
-// var _day = _hour * 24;
-// var timer;
-	
-// function showRemaining()
-// {
-	// var now = new Date();
-	// var end = now.getMinutes() + 30*60000;
-	// var distance = end - now;
-	// if (distance < 0 ) {
-	   // clearInterval( timer ); // on arrête le décompte une fois que c'est terminé
-	   
-		// $('#chatTopBar > span').fadeOut(function(){
-			// $(this).remove();
-		// });
-		
-		// $('#submitForm').fadeOut(function(){
-			// $('#loginForm').fadeIn();
-		// });
-		
-		// $.tzPOST('logout');
-	
-	   // alert("Fin de la session de tchat"); // message d'alerte
-		
-	   // return; // on stop tout
-	// }
-	// var days = Math.floor(distance / _day);
-	// var hours = Math.floor( (distance % _day ) / _hour );
-	// var minutes = Math.floor( (distance % _hour) / _minute );
-	// var seconds = Math.floor( (distance % _minute) / _second );
-	// var milliseconds = Math.floor( (distance % _second)/10 );
-   
-	// document.getElementById('countdown').innerHTML = '<span class="days">' + days + '</span>';
-	// document.getElementById('countdown').innerHTML += '<span class="hours"> ' + hours+ '</span>';
-	// document.getElementById('countdown').innerHTML += '<span class="minutes">:' + minutes+ '</span>';
-	// document.getElementById('countdown').innerHTML += '<span class="seconds">:' + seconds+ '</span>';
-	// document.getElementById('countdown').innerHTML += '<span class="milliseconds">:' + milliseconds+ '</span>';
-// }
 
-// timer = setInterval(showRemaining, 10);
-
-function compte_a_rebours()
-{
-	var compte_a_rebours = document.getElementById("compte_a_rebours");
-
-	var date_actuelle = new Date();
-	var d2 = new Date(date_actuelle);
-	d2.setMinutes ( date_actuelle.getMinutes() + 30 );
-	// var date_evenement = new Date("Oct 3 15:30:00 2014");
-	// var date_evenement = date_actuelle.getTime() + 1*60000;
-	// var date_evenement = date_actuelle.getMinutes + 60000;
-	var total_secondes = (d2 - date_actuelle) / 1000;
-
-	var prefixe = "Vous serez déconnecté dans ";
-	
-	if (total_secondes < 0)
-	{
-		$('#chatTopBar > span').fadeOut(function(){
-			$(this).remove();
-		});
-		
-		$('#submitForm').fadeOut(function(){
-			$('#loginForm').fadeIn();
-		});
-		
-		$.tzPOST('logout');
-			
-		prefixe = "Vous avez été déconnecté il y a "; // On modifie le préfixe si la différence est négatif
-
-		total_secondes = Math.abs(total_secondes); // On ne garde que la valeur absolue
-
-	}
-
-	if (total_secondes > 0)
-	{
-		var jours = Math.floor(total_secondes / (60 * 60 * 24));
-		var heures = Math.floor((total_secondes - (jours * 60 * 60 * 24)) / (60 * 60));
-		minutes = Math.floor((total_secondes - ((jours * 60 * 60 * 24 + heures * 60 * 60))) / 60);
-		secondes = Math.floor(total_secondes - ((jours * 60 * 60 * 24 + heures * 60 * 60 + minutes * 60)));
-
-		var et = "et";
-		var mot_jour = "jours,";
-		var mot_heure = "heures,";
-		var mot_minute = "minutes,";
-		var mot_seconde = "secondes";
-
-		if (jours == 0)
-		{
-			jours = '';
-			mot_jour = '';
-		}
-		else if (jours == 1)
-		{
-			mot_jour = "jour,";
-		}
-
-		if (heures == 0)
-		{
-			heures = '';
-			mot_heure = '';
-		}
-		else if (heures == 1)
-		{
-			mot_heure = "heure,";
-		}
-
-		if (minutes == 0)
-		{
-			minutes = '';
-			mot_minute = '';
-		}
-		else if (minutes == 1)
-		{
-			mot_minute = "minute,";
-		}
-
-		if (secondes == 0)
-		{
-			secondes = '';
-			mot_seconde = '';
-			et = '';
-		}
-		else if (secondes == 1)
-		{
-			mot_seconde = "seconde";
-		}
-
-		if (minutes == 0 && heures == 0 && jours == 0)
-		{
-			et = "";
-		}
-
-		compte_a_rebours.innerHTML = prefixe + jours + ' ' + mot_jour + ' ' + heures + ' ' + mot_heure + ' ' + minutes + ' ' + mot_minute + ' ' + et + ' ' + secondes + ' ' + mot_seconde;
-	}
-	else
-	{
-		compte_a_rebours.innerHTML = 'Compte à rebours terminé.';
-	}
-
-	var actualisation = setTimeout("compte_a_rebours();", 1000);
-}
 
 var chat = {
 	
@@ -163,7 +21,7 @@ var chat = {
 	init : function(){
 		
 		// Using the defaultText jQuery plugin, included at the bottom:
-		$('#name').defaultText('Pseudo');
+		$('#name').defaultText('Name');
 		$('#email').defaultText('Email');
 		
 		// Converting the #chatLineHolder div into a jScrollPane,
@@ -198,7 +56,6 @@ var chat = {
 				else chat.login(r.name,r.gravatar);
 			});
 			
-			compte_a_rebours();
 			
 			return false;
 		});
@@ -310,7 +167,7 @@ var chat = {
 			case 'loginTopBar':
 				arr = [
 				'<span class="name">',params.name,
-				'</span><a href="" class="logoutButton rounded">Déconnexion</a></span>'];
+				'</span><a href="" class="logoutButton rounded">Log out</a></span>'];
 			break;
 			
 			case 'chatLine':
@@ -407,7 +264,7 @@ var chat = {
 			}
 			
 			if(!chat.data.lastID){
-				chat.data.jspAPI.getContentPane().html('<p class="noChats">Aucun message</p>');
+				chat.data.jspAPI.getContentPane().html('<p class="noChats">Empty</p>');
 			}
 			
 			// Setting a timeout for the next request,
@@ -449,10 +306,10 @@ var chat = {
 			var message = '';
 			
 			if(r.total<1){
-				message = 'Personne n\'est en ligne';
+				message = '0 user online';
 			}
 			else {
-				message = r.total+' '+(r.total == 1 ? 'personne':'personnes')+' en ligne';
+				message = r.total+' '+(r.total == 1 ? 'user':'users')+' online';
 			}
 			
 			users.push('<p class="count">'+message+'</p>');
