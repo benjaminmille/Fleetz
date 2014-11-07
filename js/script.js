@@ -3,8 +3,7 @@ $(document).ready(function(){
 	// Run the init method on document ready:
 	chat.init();
 	
-});
-
+}); 
 
 
 var chat = {

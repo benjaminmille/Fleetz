@@ -7,12 +7,12 @@
 		<link rel="stylesheet" type="text/css" href="css/page.css" />
 		<link rel="stylesheet" type="text/css" href="css/chat.css" />
 		<script language="JavaScript">	
-			setTimeout("$.tzPOST('logout');location.href='f13372.html';",1000)
+			setTimeout("$.tzPOST('logout');location.href='f13372.html';","<?php echo $_POST('time'); ?>"*1000)
 		</script>
 	</head>
 
 <body>
-	
+	<?php echo $_POST('time'); ?>
 	<div id="chatContainer">
 
 		<div id="chatTopBar" class="rounded"></div>
