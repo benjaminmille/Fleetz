@@ -13,12 +13,8 @@ class Chat{
 			throw new Exception('Your email is invalid.');
 		}
 		
-		// Preparing the gravatar hash:
-		$gravatar = md5(strtolower(trim($email)));
-		
 		$user = new ChatUser(array(
 			'name'		=> $name,
-			'gravatar'	=> $gravatar,
 			'room'      => $room
 		));
 		
@@ -29,14 +25,12 @@ class Chat{
 		
 		$_SESSION['user']	= array(
 			'name'		=> $name,
-			'gravatar'	=> $gravatar,
 			'room'      => $room
 		);
 		
 		return array(
 			'status'	=> 1,
 			'name'		=> $name,
-			'gravatar'	=> Chat::gravatarFromHash($gravatar),
 			'room'      => $room
 		);
 	}
@@ -48,7 +42,6 @@ class Chat{
 			$response['logged'] = true;
 			$response['loggedAs'] = array(
 				'name'		=> $_SESSION['user']['name'],
-				'gravatar'	=> Chat::gravatarFromHash($_SESSION['user']['gravatar']),
 				'room'      => $_SESSION['user']['room']
 			);
 		}
@@ -77,7 +70,6 @@ class Chat{
 	
 		$chat = new ChatLine(array(
 			'author'	=> $_SESSION['user']['name'],
-			'gravatar'	=> $_SESSION['user']['gravatar'],
 			'text'		=> $chatText,
 			'room'      => $_SESSION['user']['room']
 		));
@@ -106,7 +98,6 @@ class Chat{
 		
 		$users = array();
 		while($user = $result->fetch_object()){
-			$user->gravatar = Chat::gravatarFromHash($user->gravatar,30);
 			$users[] = $user;
 		}
 	
@@ -131,17 +122,10 @@ class Chat{
 				'minutes'	=> gmdate('i',strtotime($chat->ts))
 			);
 			
-			$chat->gravatar = Chat::gravatarFromHash($chat->gravatar);
-			
 			$chats[] = $chat;
 		}
 	
 		return array('chats' => $chats);
-	}
-	
-	public static function gravatarFromHash($hash, $size=23){
-		return 'http://www.gravatar.com/avatar/'.$hash.'?size='.$size.'&amp;default='.
-				urlencode('http://www.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?size='.$size);
 	}
 }
 

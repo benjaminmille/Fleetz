@@ -52,7 +52,7 @@ var chat = {
 				if(r.error){
 					chat.displayError(r.error);
 				}
-				else chat.login(r.name,r.gravatar, r.room);
+				else chat.login(r.name,r.room);
 			});
 			
 			
@@ -77,7 +77,6 @@ var chat = {
 				params = {
 					id			: tempID,
 					author		: chat.data.name,
-					gravatar	: chat.data.gravatar,
 					text		: text.replace(/</g,'&lt;').replace(/>/g,'&gt;')
 				};
 
@@ -126,7 +125,7 @@ var chat = {
 		
 		$.tzGET('checkLogged',function(r){
 			if(r.logged){
-				chat.login(r.loggedAs.name,r.loggedAs.gravatar, r.loggedAs.room);
+				chat.login(r.loggedAs.name,r.loggedAs.room);
 			}
 		});
 		
@@ -145,10 +144,9 @@ var chat = {
 	// The login method hides displays the
 	// user's login data and shows the submit form
 	
-	login : function(name,gravatar,room){
+	login : function(name,room){
 		
 		chat.data.name = name;
-		chat.data.gravatar = gravatar;
 		chat.data.room = room;
 		$('#chatTopBar').html(chat.render('loginTopBar',chat.data));
 					
@@ -169,7 +167,7 @@ var chat = {
 		switch(template){
 			case 'loginTopBar':
 				arr = [
-				'<span class="name">',params.name,
+				'<span class="name">Logged in as <strong>',params.name,'</strong>',
 				'</span><a href="" class="logoutButton rounded">Log out</a></span>'];
 			break;
 			
