@@ -1,8 +1,7 @@
 $(document).ready(function(){
 	// Run the init method on document ready:
 	chat.init();
-}); 
-
+});
 
 var chat = {
 	
@@ -20,7 +19,7 @@ var chat = {
 		// Using the defaultText jQuery plugin, included at the bottom:
 		$('#name').defaultText('Name');
 		$('#email').defaultText('Email');
-		$('#room').defaultText('Room');
+		$('#room').defaultText('Room code');
 		$('#time').defaultText('Minutes');
 		$('#usersmax').defaultText('Number of users');
 		
@@ -115,6 +114,7 @@ var chat = {
 			$('#submitForm').fadeOut(function(){
 				$('#loginForm').fadeIn();
 				$('#chatOptions').fadeIn();
+				chat.data.jspAPI.getContentPane().html('<p class="noChats">Empty</p>');
 			});
 			
 			$.tzPOST('logout');

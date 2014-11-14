@@ -7,24 +7,25 @@
 		<link rel="stylesheet" type="text/css" href="css/page.css" />
 		<link rel="stylesheet" type="text/css" href="css/chat.css" />
 		<script language="JavaScript">
-		function logout() {
-			$('#chatTopBar > span').fadeOut(function(){
-				$(this).remove();
-			});
-			
-			$('#submitForm').fadeOut(function(){
-				$('#loginForm').fadeIn();
-				$('#chatOptions').fadeIn();
-			});
-			
-			$.tzPOST('logout');
-			
-			return false;
-		}
+			function logout() {
+				$('#chatTopBar > span').fadeOut(function(){
+					$(this).remove();
+				});
+				
+				$('#submitForm').fadeOut(function(){
+					$('#loginForm').fadeIn();
+					$('#chatOptions').fadeIn();
+					chat.data.jspAPI.getContentPane().html('<p class="noChats">Empty</p>');
+				});
+				
+				$.tzPOST('logout');
+				
+				return false;
+			}
 
-		function timeout(time) {
-			setTimeout('logout();', time*60000)
-		}
+			function timeout(time) {
+				setTimeout('logout();', time*60000)
+			}
 		</script>
 	</head>
 
@@ -41,11 +42,17 @@
 			<form id="loginForm" method="post" action="">
 				<input id="name" name="name" class="rounded" maxlength="16" />
 				<input id="email" name="email" class="rounded" />
-				<input id="room" name="room" class="rounded" />
+				<?php 
+					if (isset($_GET['room'])) {
+						echo "<input type='hidden' id='room' name='room' value=".$_GET['room']." class='rounded' />";
+					} else {
+						echo "<input id='room' name='room' class='rounded' />";
+					}
+				?>
 				<input type="submit" class="blueButton" value="Login" onClick="javascript:timeout(document.getElementById('time').value);"/>
 			</form><br>
 			
-			<form style="text-align: left;" id="chatOptions" method="post" action="">
+			<form id="chatOptions" method="post" action="">
 				<input id="time" name="time" class="rounded"/>
 				<input id="usersmax" name="usersmax" class="rounded" />
 			</form>
@@ -57,7 +64,6 @@
 			</select>
 			
 		</div>
-		
 	</div>
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
 	<script src="js/jScrollPane/jquery.mousewheel.js"></script>
