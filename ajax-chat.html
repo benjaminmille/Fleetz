@@ -7,8 +7,23 @@
 		<link rel="stylesheet" type="text/css" href="css/page.css" />
 		<link rel="stylesheet" type="text/css" href="css/chat.css" />
 		<script language="JavaScript">
+		function logout() {
+			$('#chatTopBar > span').fadeOut(function(){
+				$(this).remove();
+			});
+			
+			$('#submitForm').fadeOut(function(){
+				$('#loginForm').fadeIn();
+				$('#chatOptions').fadeIn();
+			});
+			
+			$.tzPOST('logout');
+			
+			return false;
+		}
+
 		function timeout(time) {
-			setTimeout("$.tzPOST('logout'); location.href='f13372.html';", time*60000)
+			setTimeout('logout();', time*60000)
 		}
 		</script>
 	</head>
@@ -26,25 +41,19 @@
 			<form id="loginForm" method="post" action="">
 				<input id="name" name="name" class="rounded" maxlength="16" />
 				<input id="email" name="email" class="rounded" />
+				<input id="room" name="room" class="rounded" />
 				<input type="submit" class="blueButton" value="Login" onClick="javascript:timeout(document.getElementById('time').value);"/>
+			</form><br>
+			
+			<form style="text-align: left;" id="chatOptions" method="post" action="">
+				<input id="time" name="time" class="rounded"/>
+				<input id="usersmax" name="usersmax" class="rounded" />
 			</form>
 			
 			<form id="submitForm" method="post" action="">
 				<input id="chatText" name="chatText" class="rounded" maxlength="255" />
 				<input type="submit" class="blueButton" value="Submit" />
 			</form>
-			<br/>
-			<input type="text" name="time" id="time" value="Minutes" class="rounded"/>
-			<select value="2" id="users" name="users" size="1" class="rounded">
-			<option selected>2 users
-			<option>3 users
-			<option>4 users
-			<option>5 users
-			<option>6 users
-			<option>7 users
-			<option>8 users
-			<option>9 users
-			<option>10 users
 			</select>
 			
 		</div>

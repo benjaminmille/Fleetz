@@ -35,10 +35,11 @@
 .chat{
 	background-color: rgba(0, 0, 255, 0.1); /* un arrière plan bleu à 50% de transparence */
 	min-height:24px;
-	padding:8px 6px 4px 37px;
+	padding:6px; /* aa */
+	
+	padding:8px 6px 4px 37px; 
 	position:relative;
 	margin:0 10px 10px 0;
-	
 }
 
 .chat:last-child{
@@ -74,11 +75,14 @@
 
 #chatUsers{
 	background:url('../img/1393521301_12407.jpg');
-	height:100%;
+	/* height:100%; */
+	height:360px;
 	position:absolute;
 	right:0;
-	top:45px;
-	width:100px;
+	/* top:45px;
+	width:100px; */
+	top:56px;
+	width:150px;
 }
 
 #chatUsers .user{
@@ -94,7 +98,7 @@
 	background:url('../img/1393521301_12407.jpg');
 	position:relative;
 	padding:10px;
-	top:130px;
+	/* top:130px; */
 }
 
 #chatContainer input{
@@ -102,8 +106,8 @@
 	font:13px/26px Calibri,Arial,sans-serif;
 	padding:0 5px;
 	margin-right:5px;
-	width:185px;
-	
+	width:115px;
+	outline:none; /* test */
 }
 
 #submitForm{
@@ -112,7 +116,8 @@
 
 input#chatText{
 	/* The chat submit text field */
-	width:390px;
+	/* width:390px; */
+	width:385px;
 	
 }
 

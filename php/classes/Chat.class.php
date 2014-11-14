@@ -4,13 +4,13 @@
 
 class Chat{
 	
-	public static function login($name,$email){
-		if(!$name || !$email){
-			throw new Exception('Remplissez tout les champs.');
+	public static function login($name,$email,$room){
+		if(!$name || !$email || !$room){
+			throw new Exception('Fill in all the required fields.');
 		}
 		
 		if(!filter_input(INPUT_POST,'email',FILTER_VALIDATE_EMAIL)){
-			throw new Exception('Votre email est invalide.');
+			throw new Exception('Your email is invalid.');
 		}
 		
 		// Preparing the gravatar hash:
@@ -18,23 +18,26 @@ class Chat{
 		
 		$user = new ChatUser(array(
 			'name'		=> $name,
-			'gravatar'	=> $gravatar
+			'gravatar'	=> $gravatar,
+			'room'      => $room
 		));
 		
 		// The save method returns a MySQLi object
 		if($user->save()->affected_rows != 1){
-			throw new Exception('Déja connecté.');
+			throw new Exception('This nick is in use.');
 		}
 		
 		$_SESSION['user']	= array(
 			'name'		=> $name,
-			'gravatar'	=> $gravatar
+			'gravatar'	=> $gravatar,
+			'room'      => $room
 		);
 		
 		return array(
 			'status'	=> 1,
 			'name'		=> $name,
-			'gravatar'	=> Chat::gravatarFromHash($gravatar)
+			'gravatar'	=> Chat::gravatarFromHash($gravatar),
+			'room'      => $room
 		);
 	}
 	
@@ -45,7 +48,8 @@ class Chat{
 			$response['logged'] = true;
 			$response['loggedAs'] = array(
 				'name'		=> $_SESSION['user']['name'],
-				'gravatar'	=> Chat::gravatarFromHash($_SESSION['user']['gravatar'])
+				'gravatar'	=> Chat::gravatarFromHash($_SESSION['user']['gravatar']),
+				'room'      => $_SESSION['user']['room']
 			);
 		}
 		
@@ -53,7 +57,8 @@ class Chat{
 	}
 	
 	public static function logout(){
-		DB::query("DELETE FROM webchat_users WHERE name = '".DB::esc($_SESSION['user']['name'])."'");
+		DB::query("DELETE FROM webchat_users WHERE name = '".DB::esc($_SESSION['user']['name'])."' AND room = '".DB::esc($_SESSION['user']['room'])."'");
+		DB::query("DELETE FROM webchat_lines WHERE author = '".DB::esc($_SESSION['user']['name'])."' AND room = '".DB::esc($_SESSION['user']['room'])."'");
 		
 		$_SESSION = array();
 		unset($_SESSION);
@@ -73,7 +78,8 @@ class Chat{
 		$chat = new ChatLine(array(
 			'author'	=> $_SESSION['user']['name'],
 			'gravatar'	=> $_SESSION['user']['gravatar'],
-			'text'		=> $chatText
+			'text'		=> $chatText,
+			'room'      => $_SESSION['user']['room']
 		));
 	
 		// The save method returns a MySQLi object
@@ -93,10 +99,10 @@ class Chat{
 		
 		// Deleting chats older than 5 minutes and users inactive for 30 seconds
 		
-		DB::query("DELETE FROM webchat_lines WHERE ts < SUBTIME(NOW(),'0:5:0')");
-		DB::query("DELETE FROM webchat_users WHERE last_activity < SUBTIME(NOW(),'0:0:30')");
+		DB::query("DELETE FROM webchat_lines WHERE ts < SUBTIME(NOW(),'0:5:0') AND room = '".DB::esc($_SESSION['user']['room'])."'");
+		DB::query("DELETE FROM webchat_users WHERE last_activity < SUBTIME(NOW(),'0:0:30') AND room = '".DB::esc($_SESSION['user']['room'])."'");
 		
-		$result = DB::query('SELECT * FROM webchat_users ORDER BY name ASC LIMIT 18');
+		$result = DB::query("SELECT * FROM webchat_users WHERE room = '".DB::esc($_SESSION['user']['room'])."' ORDER BY name ASC LIMIT 18");
 		
 		$users = array();
 		while($user = $result->fetch_object()){
@@ -106,14 +112,14 @@ class Chat{
 	
 		return array(
 			'users' => $users,
-			'total' => DB::query('SELECT COUNT(*) as cnt FROM webchat_users')->fetch_object()->cnt
+			'total' => DB::query("SELECT COUNT(*) as cnt FROM webchat_users WHERE room = '".DB::esc($_SESSION['user']['room'])."'")->fetch_object()->cnt
 		);
 	}
 	
 	public static function getChats($lastID){
 		$lastID = (int)$lastID;
 	
-		$result = DB::query('SELECT * FROM webchat_lines WHERE id > '.$lastID.' ORDER BY id ASC');
+		$result = DB::query("SELECT * FROM webchat_lines WHERE id > '.$lastID.' AND room = '".DB::esc($_SESSION['user']['room'])."' ORDER BY id ASC");
 	
 		$chats = array();
 		while($chat = $result->fetch_object()){

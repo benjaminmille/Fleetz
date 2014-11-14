@@ -20,6 +20,9 @@ var chat = {
 		// Using the defaultText jQuery plugin, included at the bottom:
 		$('#name').defaultText('Name');
 		$('#email').defaultText('Email');
+		$('#room').defaultText('Room');
+		$('#time').defaultText('Minutes');
+		$('#usersmax').defaultText('Number of users');
 		
 		// Converting the #chatLineHolder div into a jScrollPane,
 		// and saving the plugin's API in chat.data:
@@ -50,7 +53,7 @@ var chat = {
 				if(r.error){
 					chat.displayError(r.error);
 				}
-				else chat.login(r.name,r.gravatar);
+				else chat.login(r.name,r.gravatar, r.room);
 			});
 			
 			
@@ -111,6 +114,7 @@ var chat = {
 			
 			$('#submitForm').fadeOut(function(){
 				$('#loginForm').fadeIn();
+				$('#chatOptions').fadeIn();
 			});
 			
 			$.tzPOST('logout');
@@ -122,7 +126,7 @@ var chat = {
 		
 		$.tzGET('checkLogged',function(r){
 			if(r.logged){
-				chat.login(r.loggedAs.name,r.loggedAs.gravatar);
+				chat.login(r.loggedAs.name,r.loggedAs.gravatar, r.loggedAs.room);
 			}
 		});
 		
@@ -141,13 +145,15 @@ var chat = {
 	// The login method hides displays the
 	// user's login data and shows the submit form
 	
-	login : function(name,gravatar){
+	login : function(name,gravatar,room){
 		
 		chat.data.name = name;
 		chat.data.gravatar = gravatar;
+		chat.data.room = room;
 		$('#chatTopBar').html(chat.render('loginTopBar',chat.data));
-		
+					
 		$('#loginForm').fadeOut(function(){
+			$('#chatOptions').fadeOut();
 			$('#submitForm').fadeIn();
 			$('#chatText').focus();
 		});
