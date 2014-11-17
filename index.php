@@ -23,12 +23,12 @@
 				<input id="email" name="email" class="rounded" />
 				<?php 
 					if (isset($_GET['room'])) {
-						echo "<input type='hidden' id='room' name='room' value=".$_GET['room']." class='rounded' />";
+						echo "<input type='hidden' id='room' name='room' value=".$_GET['room']." class='rounded' />\n";
 					} else {
-						echo "<input id='room' name='room' class='rounded' />";
+						echo "<input id='room' name='room' class='rounded' />\n";
 					}
 				?>
-				<input type="submit" class="blueButton" value="Login" onClick="javascript:timeout();"/>
+				<input type="submit" class="blueButton" value="Login" onClick="javascript:chat.timeout(); chat.check(); "/>
 			</form><br>
 			
 			<form id="chatOptions" method="post" action="">

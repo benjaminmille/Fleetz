@@ -3,33 +3,16 @@ $(document).ready(function(){
 	chat.init();
 });
 
-function logout() {
-	$('#chatTopBar > span').fadeOut(function(){
-		$(this).remove();
-	});
-	
-	$('#submitForm').fadeOut(function(){
-		$('#loginForm').fadeIn();
-		$('#chatOptions').fadeIn();
-		chat.data.jspAPI.getContentPane().html('<p class="noChats">Empty</p>');
-	});
-	
-	$.tzPOST('logout');
-	
-	return false;
-}
-
-function timeout() {
-	setTimeout('logout();', document.getElementById('time').value*60000)
-}
-
-var chat = {
+var chat = {	
 	
 	// data holds variables for use in the class:
 	
 	data : {
 		lastID 		: 0,
-		noActivity	: 0
+		noActivity	: 0,
+		timeIsOut   : false,
+		timeToWait  : 0,
+		time        : 0
 	},
 	
 	// Init binds event listeners and sets up timers:
@@ -74,8 +57,6 @@ var chat = {
 				}
 				else chat.login(r.name,r.room);
 			});
-			
-			
 			
 			return false;
 		});
@@ -126,7 +107,6 @@ var chat = {
 		// Logging the user out:
 		
 		$('a.logoutButton').live('click',function(){
-			
 			$('#chatTopBar > span').fadeOut(function(){
 				$(this).remove();
 			});
@@ -179,6 +159,51 @@ var chat = {
 		
 	},
 	
+	// La méthode logout masque la barre du haut du chat
+	// et le champs de message et déconnecte l'utilisateur
+	
+	logout : function() {
+	
+		$('#chatTopBar > span').fadeOut(function(){
+			$(this).remove();
+		});
+		
+		$('#submitForm').fadeOut(function(){
+			$('#loginForm').fadeIn();
+			$('#chatOptions').fadeIn();
+			chat.data.jspAPI.getContentPane().html('<p class="noChats">Empty</p>');
+		});
+		
+		$.tzPOST('logout');
+		
+		return false;
+		
+	},
+	
+	// La méthode timeout démarre un minuteur avec le nombre souhaité
+	// avant de déconnecter l'utilisateur à la fin du minuteur
+	
+	timeout : function() {
+		chat.data.timeIsOut = false;
+		chat.data.time = document.getElementById('time').value;
+		setTimeout('chat.logout(); chat.data.timeIsOut = true;', chat.data.time*60000);
+	},
+	
+	// La méthode check vérifie le temps de connexion restant
+	// et l'affiche sur la barre du haut du chat
+	
+	check : function(firstCheck) {
+		if(!chat.data.timeIsOut){
+			if (firstCheck == false) {
+				chat.data.time = chat.data.time-1;
+				chat.render('loginTopBar',chat.data);
+				chat.data.time = chat.data.time-1;
+			}
+			setTimeout('chat.check(false)', 60000);
+		} 
+		else chat.data.time = 0;
+	},
+	
 	// The render method generates the HTML markup 
 	// that is needed by the other methods:
 	
@@ -188,8 +213,9 @@ var chat = {
 		switch(template){
 			case 'loginTopBar':
 				arr = [
-				'<span class="name">Logged as <strong>',params.name,'</strong>',
-				'</span><a href="" class="logoutButton rounded">Log out</a></span>'];
+					'<span class="name">Logged as <strong>',params.name,'</strong></span>',
+					'<span class="time">',params.time,' min before</span>',
+					'<a href="" class="logoutButton rounded">Log out</a>'];
 			break;
 			
 			case 'chatLine':
