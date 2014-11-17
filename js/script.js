@@ -3,6 +3,26 @@ $(document).ready(function(){
 	chat.init();
 });
 
+function logout() {
+	$('#chatTopBar > span').fadeOut(function(){
+		$(this).remove();
+	});
+	
+	$('#submitForm').fadeOut(function(){
+		$('#loginForm').fadeIn();
+		$('#chatOptions').fadeIn();
+		chat.data.jspAPI.getContentPane().html('<p class="noChats">Empty</p>');
+	});
+	
+	$.tzPOST('logout');
+	
+	return false;
+}
+
+function timeout() {
+	setTimeout('logout();', document.getElementById('time').value*60000)
+}
+
 var chat = {
 	
 	// data holds variables for use in the class:
@@ -54,6 +74,7 @@ var chat = {
 				}
 				else chat.login(r.name,r.room);
 			});
+			
 			
 			
 			return false;
@@ -167,7 +188,7 @@ var chat = {
 		switch(template){
 			case 'loginTopBar':
 				arr = [
-				'<span class="name">Logged in as <strong>',params.name,'</strong>',
+				'<span class="name">Logged as <strong>',params.name,'</strong>',
 				'</span><a href="" class="logoutButton rounded">Log out</a></span>'];
 			break;
 			

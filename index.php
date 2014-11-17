@@ -6,27 +6,6 @@
 		<link rel="stylesheet" type="text/css" href="js/jScrollPane/jScrollPane.css" />
 		<link rel="stylesheet" type="text/css" href="css/page.css" />
 		<link rel="stylesheet" type="text/css" href="css/chat.css" />
-		<script language="JavaScript">
-			function logout() {
-				$('#chatTopBar > span').fadeOut(function(){
-					$(this).remove();
-				});
-				
-				$('#submitForm').fadeOut(function(){
-					$('#loginForm').fadeIn();
-					$('#chatOptions').fadeIn();
-					chat.data.jspAPI.getContentPane().html('<p class="noChats">Empty</p>');
-				});
-				
-				$.tzPOST('logout');
-				
-				return false;
-			}
-
-			function timeout(time) {
-				setTimeout('logout();', time*60000)
-			}
-		</script>
 	</head>
 
 <body>
@@ -49,7 +28,7 @@
 						echo "<input id='room' name='room' class='rounded' />";
 					}
 				?>
-				<input type="submit" class="blueButton" value="Login" onClick="javascript:timeout(document.getElementById('time').value);"/>
+				<input type="submit" class="blueButton" value="Login" onClick="javascript:timeout();"/>
 			</form><br>
 			
 			<form id="chatOptions" method="post" action="">

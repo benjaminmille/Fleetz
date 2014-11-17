@@ -12,7 +12,7 @@
 
 #chatTopBar{
 	height:40px;
-	background:url('../img/1393521301_12407.jpg') repeat-x #d0d0d0;
+	background:url('../img/background20.jpg') repeat-x #d0d0d0;
 	margin-bottom:15px;
 	position:relative;
 	
@@ -33,7 +33,7 @@
 }
 
 .chat{
-	background-color: rgba(0, 0, 255, 0.1); /* un arrière plan bleu à 50% de transparence */
+	background-color: rgba(240, 248, 255, 0.6);  /* un arrière plan bleu à 50% de transparence */
 	min-height:24px;
 	padding:6px; /* aa */
 	
@@ -74,7 +74,7 @@
 /* Chat User Area */
 
 #chatUsers{
-	background:url('../img/1393521301_12407.jpg');
+	background:url('../img/background20.jpg');
 	/* height:100%; */
 	height:360px;
 	position:absolute;
@@ -95,7 +95,7 @@
 /* Bottom Bar */
 
 #chatBottomBar{
-	background:url('../img/1393521301_12407.jpg');
+	background:url('../img/background20.jpg');
 	position:relative;
 	padding:10px;
 	/* top:130px; */
