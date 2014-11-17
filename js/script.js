@@ -10,9 +10,7 @@ var chat = {
 	data : {
 		lastID 		: 0,
 		noActivity	: 0,
-		timeIsOut   : false,
-		timeToWait  : 0,
-		time        : 0
+		timeIsOut   : false
 	},
 	
 	// Init binds event listeners and sets up timers:
@@ -192,16 +190,18 @@ var chat = {
 	// La méthode check vérifie le temps de connexion restant
 	// et l'affiche sur la barre du haut du chat
 	
-	check : function(firstCheck) {
-		if(!chat.data.timeIsOut){
-			if (firstCheck == false) {
+	check : function() {
+		setInterval(function(){
+			if(!chat.data.timeIsOut){
 				chat.data.time = chat.data.time-1;
-				chat.render('loginTopBar',chat.data);
-				chat.data.time = chat.data.time-1;
+				document.getElementById('chatTopBar').innerHTML = 
+					'<span class="name">Logged as <strong>' + chat.data.name + '</strong></span>\
+					<span class="time">' + chat.data.time + ' min before</span>\
+					<a href="" class="logoutButton rounded">Log out</a>';
+			} else {
+				document.getElementById('chatTopBar').innerHTML = '<span class="name">Sign in</span>';
 			}
-			setTimeout('chat.check(false)', 60000);
-		} 
-		else chat.data.time = 0;
+		}, 60000);
 	},
 	
 	// The render method generates the HTML markup 

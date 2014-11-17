@@ -11,7 +11,9 @@
 <body>
 	<div id="chatContainer">
 
-		<div id="chatTopBar" class="rounded"></div>
+		<div id="chatTopBar" class="rounded">
+			<span class="name">Sign in</span>
+		</div>
 		<div id="chatLineHolder"></div>
 		
 		<div id="chatUsers" class="rounded"></div>
@@ -28,7 +30,7 @@
 						echo "<input id='room' name='room' class='rounded' />\n";
 					}
 				?>
-				<input type="submit" class="blueButton" value="Login" onClick="javascript:chat.timeout(); chat.check(); "/>
+				<input type="submit" class="blueButton" value="Login" onClick="chat.timeout(); chat.check();"/>
 			</form><br>
 			
 			<form id="chatOptions" method="post" action="">
