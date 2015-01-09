@@ -17,7 +17,15 @@
 		if (isset($_GET['room'])) {
 			echo "<input type='hidden' id='room' name='room' value=".$_GET['room']." class='rounded' />\n";
 		} else {
-			echo "<input id='room' name='room' value=".code()." class='rounded'/>\n";
+			echo "<input type='hidden' id='room' name='room' value=".code()." class='rounded'/>\n";
+		}
+	}
+	
+	function divCode() {
+		if (isset($_GET['room'])) {
+			echo "<span class='name'>Welcome to the room, please sign in</span>\n";
+		} else {
+			echo "<span class='name'>Welcome to Fleetz, create your own room</span>\n";
 		}
 	}
 ?>

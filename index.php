@@ -12,7 +12,7 @@
 	<body>
 		<div id="chatContainer">
 			<div id="chatTopBar" class="rounded">
-				<span class="name">Sign in</span>
+				<?php divCode(); ?>
 			</div>
 			<div id="chatLineHolder"></div>
 			
