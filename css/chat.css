@@ -6,16 +6,16 @@
 	position:relative;
 }
 
-
 /* Top Bar */
-
 
 #chatTopBar{
 	height:40px;
-	background:url('../img/background20.jpg') repeat-x #d0d0d0;
+	background:url('../img/solid_gray.jpg') repeat-x #d0d0d0;
+	border:1px solid #fff;
 	margin-bottom:15px;
 	position:relative;
-	
+	color:#777;
+	text-shadow:1px 1px 0 #FFFFFF;
 }
 
 #chatTopBar .name{
@@ -80,13 +80,10 @@
 /* Chat User Area */
 
 #chatUsers{
-	background:url('../img/background20.jpg');
-	/* height:100%; */
+	background:url('../img/solid_gray.jpg') repeat-x #d0d0d0;
 	height:360px;
 	position:absolute;
 	right:0;
-	/* top:45px;
-	width:100px; */
 	top:56px;
 	width:150px;
 }
@@ -101,15 +98,15 @@
 /* Bottom Bar */
 
 #chatBottomBar{
-	background:url('../img/background20.jpg');
+	background:url('../img/solid_gray.jpg') repeat-x #d0d0d0;
 	position:relative;
 	padding:10px;
-	/* top:130px; */
+	border:1px solid #fff;
 }
 
 #chatContainer input{
 	height:26px;
-	font:13px/26px Calibri,Arial,sans-serif;
+	font:13px/26px Arial,sans-serif;
 	padding:0 5px;
 	margin-right:5px;
 	width:115px;
@@ -122,9 +119,15 @@
 
 input#chatText{
 	/* The chat submit text field */
-	/* width:390px; */
-	width:385px;
-	
+	width:300px;
+}
+
+input#time{
+	width:70px;
+}
+
+input#email{
+	width:150px;
 }
 
 /* Overloading the default styles of jScrollPane */
@@ -174,50 +177,6 @@ a.logoutButton:hover{
 	-webkit-box-shadow:0 0 7px #666 inset;
 	box-shadow:0 0 7px #666 inset;
 }
-
-/*#chatContainer .blueButton{
-	background-color: rgba(0, 0, 0, 0.1);
-	color:black !important;
-	font-size:13px;
-	text-align:center;
-	width:75px;
-	margin:0;
-	cursor:pointer;
-	-moz-box-shadow:0 0 7px #888 inset;
-	-webkit-box-shadow:0 0 7px #888 inset;
-	box-shadow:0 0 7px #888 inset;
-	border-radius:4px;
-}
-
-#chatContainer .blueButton:hover{
-	-moz-box-shadow:0 0 7px #666 inset;
-	-webkit-box-shadow:0 0 7px #666 inset;
-	box-shadow:0 0 7px #666 inset;
-} */
-
-/*a.logoutButton{
-	background-color:#bbb;
-	border:1px solid #eee !important;
-	color:#FFFFFF !important;
-	font-size:12px;
-	padding:5px 9px;
-	position:absolute;
-	right:10px;
-	text-shadow:1px 1px 0 #888;
-	top:7px;
-	
-	-moz-box-shadow:0 0 7px #888 inset;
-	-webkit-box-shadow:0 0 7px #888 inset;
-	box-shadow:0 0 7px #888 inset;
-}
-
-a.logoutButton:hover{
-	text-shadow:1px 1px 0 #888;
-	
-	-moz-box-shadow:0 0 7px #666 inset;
-	-webkit-box-shadow:0 0 7px #666 inset;
-	box-shadow:0 0 7px #666 inset;
-}*/
 
 #chatContainer .blueButton{
 	background:url('../img/button_blue.png') no-repeat;

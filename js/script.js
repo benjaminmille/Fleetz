@@ -26,7 +26,7 @@ var chat = {
 		$('#name').defaultText('Name');
 		$('#email').defaultText('Email');
 		$('#room').defaultText('Room code');
-		$('#time').defaultText('Minutes');
+		$('#time').defaultText('Logout in');
 		$('#usersmax').defaultText('Number of users');
 		
 		// Converting the #chatLineHolder div into a jScrollPane,
@@ -45,7 +45,6 @@ var chat = {
 		// Logging a person in the chat:
 		
 		$('#loginForm').submit(function(){
-			
 			if(working) return false;
 			working = true;
 			
@@ -163,16 +162,7 @@ var chat = {
 		// Logging the user out:
 		
 		$('a.logoutButton').live('click',function(){
-			$('#chatTopBar > span').fadeOut(function(){
-				$(this).remove();
-			});
-			
-			$('#submitForm').fadeOut(function(){
-				$('#loginForm').fadeIn();
-				$('#chatOptions').fadeIn();
-				chat.data.jspAPI.getContentPane().html('<p class="noChats">Empty</p>');
-			});
-			
+			chat.logout();
 			$.tzPOST('logout');
 			
 			return false;
@@ -202,13 +192,12 @@ var chat = {
 	// user's login data and shows the submit form
 	
 	login : function(name,room){
-		
 		chat.data.name = name;
 		chat.data.room = room;
+		
 		$('#chatTopBar').html(chat.render('loginTopBar',chat.data));
-					
+		
 		$('#loginForm').fadeOut(function(){
-			$('#chatOptions').fadeOut();
 			$('#submitForm').fadeIn();
 			$('#chatText').focus();
 		});
@@ -217,24 +206,25 @@ var chat = {
 	},
 	
 	// La méthode logout masque la barre du haut du chat
-	// et le champs de message et déconnecte l'utilisateur
+	// et le champs de message
 	
 	logout : function() {
-	
+				
 		$('#chatTopBar > span').fadeOut(function(){
 			$(this).remove();
+			$('a.logoutButton').fadeOut();
+			$('#chatTopBar').html('<span class="name">Sign in</span>');
 		});
 		
 		$('#submitForm').fadeOut(function(){
 			$('#loginForm').fadeIn();
-			$('#chatOptions').fadeIn();
 			chat.data.jspAPI.getContentPane().html('<p class="noChats">Empty</p>');
 		});
 		
-		$.tzPOST('logout');
+		chat.data.jspAPI.reinitialise();
+		chat.data.jspAPI.scrollToBottom(true);
 		
 		return false;
-		
 	},
 	
 	// La méthode timeout démarre un minuteur avec la durée choisie
@@ -251,7 +241,8 @@ var chat = {
 				chat.data.time = chat.data.time-1;
 				$('#chatTopBar').html(chat.render('loginTopBar',chat.data));
 			} else {
-				$('#chatTopBar').html('<span class="name">Sign in</span>');
+				chat.logout();
+				$.tzPOST('logout');
 				clearInterval(timer);
 			}
 		}, 60000);
@@ -267,7 +258,6 @@ var chat = {
 			case 'popup':
 				arr = [
 					'<h2>Share the chat room</h2><br/>',
-					'<p>The room link is:</p><br/>',
 					'<input size="65" id="roomLink" name="roomLink" class="rounded" value="',window.location.href,'?room=',params.room,'"/>'];
 			break;
 			

@@ -7,7 +7,7 @@ header{
 }
 
 body{
-	background:url('../img/background23.jpg') repeat-x #323232;
+	background:url('../img/background22.jpg') repeat-x #323232;
 	background-repeat: no-repeat; 
 	background-attachment: fixed; 
 	position:relative;
@@ -16,17 +16,19 @@ body{
 	-o-background-size: 100% 100%;        /* Opera 9.5 */
 	-webkit-background-size: 100% 100%;   /* Safari 3.0 */
 	background-size: 100% 100%;           /* Gecko 2.0 (Firefox 4.0) > CSS3 */
-	font:15px Calibri,Arial,sans-serif;
-	
+	font:15px Arial,sans-serif;
 }
 
 footer{
-	background:url('../img/background20.jpg') repeat-x #323232;
+	height:22px;
+	background:url('../img/solid_gray.jpg') repeat-x #d0d0d0;
+	border:1px solid #fff;
 	position:fixed;
-	width:100%;
-	height:25px;
+	color:#777;
+	text-shadow:1px 1px 0 #FFFFFF;
 	bottom:0;
 	left:0;
+	width:100%;
 }
 
 h2{

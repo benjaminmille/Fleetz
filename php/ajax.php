@@ -3,10 +3,10 @@
 /* Database Configuration. Add your details below */
 
 $dbOptions = array(
-	'db_host' => '127.0.0.1',
-	'db_user' => 'root', 
-	'db_pass' => '',
-	'db_name' => 'bdd'
+	'db_host' => 'fleetmobxddbroot.mysql.db',
+	'db_user' => 'fleetmobxddbroot', 
+	'db_pass' => 'Begabask35',
+	'db_name' => 'fleetmobxddbroot'
 );
 
 /* Database Config End */
